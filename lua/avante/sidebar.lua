@@ -1330,15 +1330,6 @@ function Sidebar:create_input()
         return
       end
 
-      -- Execute when the stream request is actually completed
-      self:update_content("\n\n🎉🎉🎉 **Generation complete!** Please review the code suggestions above.", {
-        stream = true,
-        scroll = true,
-        callback = function()
-          api.nvim_exec_autocmds("User", { pattern = VIEW_BUFFER_UPDATED_PATTERN })
-        end,
-      })
-
       vim.defer_fn(function()
         if self.result and self.result.winid and api.nvim_win_is_valid(self.result.winid) then
           api.nvim_set_current_win(self.result.winid)
